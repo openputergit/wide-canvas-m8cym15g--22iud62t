@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f99c1a;
+            --secondary: #3610d1;
+        }
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        .feature-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid var(--primary);
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Burger Menu -->
+    <div id="burgerMenu" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="bg-white w-4/5 max-w-sm h-full p-4 slide-in">
+            <div class="flex justify-between items-center mb-6">
+                <img src="https://firebasestorage.googleapis.com/v0/b/widecanvas-d0dd4.appspot.com/o/logos%2F1024%20BH4.png?alt=media&token=87361d8f-de65-47cf-8a10-7264c563630e" alt="Logo" class="h-8">
+                <button onclick="toggleBurgerMenu()" class="text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div class="w-12 h-12 bg-gray-200 rounded-full"></div>
+                    <div>
+                        <h3 class="font-semibold">John Doe</h3>
+                        <p class="text-sm text-gray-500">Premium Member</p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded"><i class="bi bi-person"></i> Profile</a>
+                    <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded"><i class="bi bi-clock-history"></i> History</a>
+                    <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded"><i class="bi bi-receipt"></i> Invoices</a>
+                    <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded"><i class="bi bi-wallet2"></i> Payment Methods</a>
+                    <a href="#" class="flex items-center gap-3 p-2 hover:bg-gray-100 rounded"><i class="bi bi-gear"></i> Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white p-4 flex justify-between items-center">
+        <button onclick="toggleBurgerMenu()" class="text-2xl"><i class="bi bi-list"></i></button>
+        <img src="https://firebasestorage.googleapis.com/v0/b/widecanvas-d0dd4.appspot.com/o/logos%2F1024%20BH4.png?alt=media&token=87361d8f-de65-47cf-8a10-7264c563630e" alt="Logo" class="h-8">
+        <div class="flex gap-4">
+            <button class="text-xl"><i class="bi bi-headphones"></i></button>
+            <button class="text-xl relative">
+                <i class="bi bi-bell"></i>
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">1</span>
+            </button>
+            <button class="text-xl"><i class="bi bi-list-ul"></i></button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-4">
+        <!-- Ad Carousel -->
+        <div class="relative mb-6 bg-blue-200 rounded-xl h-48 overflow-hidden">
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                <div class="w-2 h-2 bg-white rounded-full"></div>
+                <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+                <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+                <div class="w-2 h-2 bg-white/50 rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <h2 class="text-xl font-bold mb-4">Features</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <!-- Feature items with hover effects and animations -->
+            <div class="feature-card bg-teal-400 p-4 rounded-xl text-center">
+                <i class="bi bi-bag text-2xl"></i>
+                <p class="mt-2 text-sm">Grocery</p>
+            </div>
+            <!-- More feature cards... -->
+        </div>
+
+        <!-- Emergency Services -->
+        <h2 class="text-xl font-bold mb-4">Emergency Services</h2>
+        <div class="grid grid-cols-5 gap-4 mb-6">
+            <!-- Emergency service buttons -->
+            <button class="p-2 bg-white rounded-lg shadow text-center text-sm">
+                <i class="bi bi-shield text-2xl block mb-1"></i>
+                Pet Care
+            </button>
+            <!-- More emergency buttons... -->
+        </div>
+
+        <!-- Finance & Accounts -->
+        <h2 class="text-xl font-bold mb-4">Finance & accounts</h2>
+        <div class="grid grid-cols-5 gap-4 mb-6">
+            <!-- Finance buttons -->
+            <button onclick="showQRScanner()" class="p-2 bg-white rounded-lg shadow text-center text-sm">
+                <i class="bi bi-qr-code text-2xl block mb-1"></i>
+                Scan to Pay
+            </button>
+            <!-- More finance buttons... -->
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold">Upcoming Events</h2>
+            <a href="#" class="text-[var(--primary)]">Show all <i class="bi bi-chevron-right"></i></a>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <!-- Event cards -->
+            <div class="relative bg-white rounded-xl overflow-hidden">
+                <img src="https://source.unsplash.com/random/300x200?event" alt="Event" class="w-full h-32 object-cover">
+                <button class="absolute top-2 right-2 text-white"><i class="bi bi-heart"></i></button>
+                <div class="p-3">
+                    <h3 class="font-semibold">Community Event</h3>
+                    <p class="text-sm text-gray-500">Dec 24, 2023</p>
+                </div>
+            </div>
+            <!-- More event cards... -->
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 w-full bg-white border-t flex justify-between items-center px-6 py-3">
+        <button class="text-[var(--primary)]"><i class="bi bi-house-door-fill"></i></button>
+        <button><i class="bi bi-search"></i></button>
+        <button class="bg-[var(--primary)] p-3 rounded-full text-white -mt-6"><i class="bi bi-plus-lg"></i></button>
+        <button><i class="bi bi-calendar-event"></i></button>
+        <button><i class="bi bi-cart"></i></button>
+    </nav>
+
+    <!-- QR Scanner Modal -->
+    <div id="qrScannerModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="bg-white p-4 rounded-lg w-11/12 max-w-md mx-auto mt-20">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">Scan QR Code</h3>
+                <button onclick="closeQRScanner()" class="text-2xl">&times;</button>
+            </div>
+            <div class="aspect-square bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+                <div class="loader"></div>
+            </div>
+            <button onclick="closeQRScanner()" class="w-full bg-[var(--primary)] text-white py-2 rounded-lg">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleBurgerMenu() {
+            document.getElementById('burgerMenu').classList.toggle('hidden');
+        }
+
+        function showQRScanner() {
+            document.getElementById('qrScannerModal').classList.remove('hidden');
+        }
+
+        function closeQRScanner() {
+            document.getElementById('qrScannerModal').classList.add('hidden');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('burgerMenu')) {
+                toggleBurgerMenu();
+            }
+            if (event.target == document.getElementById('qrScannerModal')) {
+                closeQRScanner();
+            }
+        }
+    </script>
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
